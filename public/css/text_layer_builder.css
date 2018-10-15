@@ -1,0 +1,937 @@
+.textLayer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	line-height: 1;
+	pointer-events: none
+}
+
+.textLayer>div {
+	color: transparent;
+	position: absolute;
+	white-space: pre;
+	cursor: text;
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+	opacity: .4;
+	pointer-events: auto
+}
+
+.textLayer .highlight {
+	margin: -1px;
+	padding: 1px;
+	background-color: #b400aa;
+	border-radius: 4px
+}
+
+.textLayer .highlight.begin {
+	border-radius: 4px 0 0 4px
+}
+
+.textLayer .highlight.end {
+	border-radius: 0 4px 4px 0
+}
+
+.textLayer .highlight.middle {
+	border-radius: 0
+}
+
+.textLayer .highlight.selected {
+	background-color: #006400
+}
+
+.textLayer .endOfContent {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	cursor: default;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none
+}
+
+.textLayer .endOfContent.active {
+	top: 0
+}
+
+#page {
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 80px;
+	padding-bottom: 220px;
+	background-color: #e8e8e8;
+	padding: 10px;
+	text-align: center;
+	min-height: 350px
+}
+
+.textLayer>div {
+	outline: 2px dashed transparent;
+	overflow: hidden
+}
+
+.textLayer>.edited {
+	background-color: #fff;
+	opacity: 1
+}
+
+[data-tool=text] .textLayer,
+[data-tool=text] canvas {
+	cursor: text
+}
+
+[data-tool=text] .textLayer>div:hover {
+	outline-color: #089de3
+}
+
+[data-tool=text] .textLayer>div.edited:hover,
+[data-tool=text] .textLayer>div.not-editable:hover {
+	outline-color: transparent
+}
+
+.page-container {
+	display: inline-block;
+	position: relative
+}
+
+.page-number-label {
+	float: right;
+	width: 50px;
+	margin-right: -50px;
+	font-size: 30px;
+	color: #ccc
+}
+
+.page-wrap {
+	position: relative;
+	display: inline-block;
+	overflow: hidden
+}
+
+.page-wrap canvas {
+	background-color: #fff
+}
+
+.image-editable img {
+	max-width: 800px
+}
+
+.image-editable,
+.text-editable {
+	outline: none;
+	white-space: pre;
+	overflow: hidden;
+	text-align: left
+}
+
+.image-editable {
+	padding: 5px
+}
+
+.text-editable {
+	border: 2px dashed transparent
+}
+
+.image-editable,
+.link-editable,
+.shape-editable {
+	border: 2px dashed transparent;
+	box-sizing: border-box
+}
+
+.shape-editable.whiteout.active,
+.shape-editable.whiteout:hover,
+.ui-wrapper:hover .shape-editable.whiteout {
+	outline: 2px dashed #089de3
+}
+
+.ff-editable.active .ff-field,
+.ff-editable:hover .ff-field,
+.image-editable:hover,
+.link-editable.active,
+.link-editable:hover,
+.shape-editable.active,
+.shape-editable:hover,
+.ui-wrapper:hover .ff-editable .ff-field,
+.ui-wrapper:hover .image-editable,
+.ui-wrapper:hover .link-editable,
+.ui-wrapper:hover .shape-editable {
+	border: 2px dashed #089de3
+}
+
+.shape-editable.whiteout.inactive:hover {
+	border-color: transparent
+}
+
+.ff-editable.ui-draggable-dragging .ff-field,
+.ff-editable.ui-resizable-resizing .ff-field,
+.shape-editable.ui-draggable-dragging,
+.shape-editable.ui-resizable-resizing {
+	outline: none
+}
+
+.ff-editable.ui-draggable-dragging .ui-resizable-handle,
+.ff-editable.ui-resizable-resizing .ui-resizable-handle,
+.shape-editable.ui-draggable-dragging .ui-resizable-handle,
+.shape-editable.ui-resizable-resizing .ui-resizable-handle {
+	display: none!important
+}
+
+.shape-editable.whiteout.inactive:hover {
+	cursor: text
+}
+
+.text-editable::-moz-selection,
+.text-editable::selection {
+	background: #9ecaed
+}
+
+.text-editable:hover {
+	border-color: #089de3
+}
+
+.text-editable:hover:focus {
+	border-color: transparent
+}
+
+.ff-editable,
+.image-editable,
+.link-editable,
+.shape-editable,
+.text-editable.ui-draggable-handle {
+	cursor: move
+}
+
+.ff-editable.ui-draggable-disabled,
+.link-editable.ui-draggable-disabled,
+.shape-editable.ui-draggable-disabled,
+.text-editable.ui-draggable-disabled {
+	cursor: inherit
+}
+
+.shape-editable-menu .dropdown-menu.border-size-opts {
+	width: 54px;
+	min-width: 54px
+}
+
+.text-editable-menu .font-size-opts {
+	min-width: 220px
+}
+
+.text-editable-menu .font-size-opts li {
+	text-align: center
+}
+
+.dropdown-menu-color-opts .color-swatch {
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent
+}
+
+.color-swatch:hover {
+	border-color: #fff
+}
+
+.color-swatch .diagonal-red-line {
+	width: 25px;
+	height: 20px;
+	border-bottom: 1px solid red;
+	-webkit-transform: translateY(10px) translateX(10px) rotate(-45deg);
+	-ms-transform: translateY(10px) translateX(10px) rotate(-45deg);
+	-moz-transform: translateY(10px) translateX(10px) rotate(-45deg);
+	position: absolute;
+	top: -18px;
+	left: -21px
+}
+
+.color-swatch-col {
+	float: left;
+	margin: 0;
+	padding: 0
+}
+
+.dropdown-menu-color-opts {
+	width: 206px;
+	text-align: center;
+	font-weight: 400;
+	padding: 2px
+}
+
+.image-opts li a,
+.sign-opts li a {
+	line-height: 30px
+}
+
+.image-opts li,
+.sign-opts li {
+	text-align: center;
+	min-width: 250px
+}
+
+.image-opts img {
+	height: 45px;
+	max-width: 300px
+}
+
+.sign-opts img {
+	height: 45px;
+	padding: 5px
+}
+
+[data-tool=strikethrough] .textLayer>div {
+	opacity: 1
+}
+
+[data-tool=strikethrough] .textLayer .highlighted {
+	opacity: .3
+}
+
+.textLayer>div .strikethrough {
+	color: transparent;
+	position: relative;
+	display: inline-block
+}
+
+.textLayer .strikethrough:after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	border-top: 2px solid red;
+	height: 45%;
+	height: calc(50% - 1px);
+	width: 100%
+}
+
+.textLayer>div .strikethrough::-moz-selection,
+.textLayer>div .strikethrough::selection {
+	background: #fdfbfb
+}
+
+.signaturePreview.first,
+.signaturePreview:hover {
+	background-color: #eff8fc;
+	color: #089de3
+}
+
+.signaturePreview {
+	font-size: 35px;
+	padding: 5px;
+	display: inline-block;
+	border: 3px solid transparent;
+	border-radius: 7px;
+	vertical-align: top;
+	margin-right: 15px;
+	margin-bottom: 5px;
+	cursor: pointer
+}
+
+.ui-resizable-handle:hover {
+	background-color: #089de3
+}
+
+.ui-resizable-e,
+.ui-resizable-n,
+.ui-resizable-ne,
+.ui-resizable-nw,
+.ui-resizable-s,
+.ui-resizable-se,
+.ui-resizable-sw,
+.ui-resizable-w {
+	width: 10px;
+	height: 10px;
+	background-color: #fff;
+	border: 2px solid #089de3;
+	display: none
+}
+
+.ui-wrapper.active .ui-resizable-e,
+.ui-wrapper.active .ui-resizable-n,
+.ui-wrapper.active .ui-resizable-ne,
+.ui-wrapper.active .ui-resizable-nw,
+.ui-wrapper.active .ui-resizable-s,
+.ui-wrapper.active .ui-resizable-se,
+.ui-wrapper.active .ui-resizable-sw,
+.ui-wrapper.active .ui-resizable-w,
+.ui-wrapper:hover .ui-resizable-e,
+.ui-wrapper:hover .ui-resizable-n,
+.ui-wrapper:hover .ui-resizable-ne,
+.ui-wrapper:hover .ui-resizable-nw,
+.ui-wrapper:hover .ui-resizable-s,
+.ui-wrapper:hover .ui-resizable-se,
+.ui-wrapper:hover .ui-resizable-sw,
+.ui-wrapper:hover .ui-resizable-w {
+	display: block
+}
+
+.ui-resizable-nw {
+	left: -7px;
+	top: -7px
+}
+
+.ui-resizable-ne {
+	top: -7px;
+	right: -7px
+}
+
+.ui-resizable-sw {
+	bottom: -7px;
+	left: -7px
+}
+
+.ui-resizable-se {
+	bottom: -7px;
+	right: -7px
+}
+
+.ui-resizable-n {
+	top: -7px;
+	left: 50%
+}
+
+.ui-resizable-s {
+	bottom: -5px;
+	left: 50%
+}
+
+.ui-resizable-w {
+	left: -7px;
+	top: 50%
+}
+
+.ui-resizable-e {
+	right: -7px;
+	top: 50%
+}
+
+.ff-editable .ui-resizable-e,
+.ff-editable .ui-resizable-n,
+.ff-editable .ui-resizable-s,
+.ff-editable .ui-resizable-w,
+.link-editable .ui-resizable-e,
+.link-editable .ui-resizable-n,
+.link-editable .ui-resizable-s,
+.link-editable .ui-resizable-w,
+.shape-ellipse .ui-resizable-ne,
+.shape-ellipse .ui-resizable-nw,
+.shape-ellipse .ui-resizable-se,
+.shape-ellipse .ui-resizable-sw,
+.shape-rectangle .ui-resizable-e,
+.shape-rectangle .ui-resizable-n,
+.shape-rectangle .ui-resizable-s,
+.shape-rectangle .ui-resizable-w,
+.small-image .ui-resizable-e,
+.small-image .ui-resizable-n,
+.small-image .ui-resizable-s,
+.small-image .ui-resizable-w {
+	display: none!important
+}
+
+.dropdown-menu .divider {
+	width: 100%
+}
+
+.mouse-target {
+	position: absolute;
+	opacity: .3;
+	cursor: pointer
+}
+
+@media screen and (min-width:768px) {
+	#createSignatureModal .modal-dialog {
+		width: 900px
+	}
+}
+
+#selectionBorder {
+	border: 2px dotted #089de3;
+	position: absolute
+}
+
+[data-tool=link] .page-wrap,
+[data-tool=shape] .page-wrap,
+[data-tool=whiteout] .page-wrap {
+	cursor: crosshair
+}
+
+.link-editable {
+	background-color: rgba(8, 157, 227, .1)
+}
+
+.formLayer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	line-height: 1;
+	pointer-events: none
+}
+
+.formLayer input,
+.formLayer select,
+.formLayer textarea {
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	margin-left: 2px!important;
+	pointer-events: auto
+}
+
+.formLayer input[type=password],
+.formLayer input[type=text],
+.formLayer select,
+.formLayer textarea {
+	border-color: transparent!important;
+	background-color: #e7f5fc!important
+}
+
+.formLayer input[readonly],
+.formLayer select[readonly],
+.formLayer textarea[readonly] {
+	display: none!important
+}
+
+.formLayer input[type=text]:focus {
+	background-color: #fff!important
+}
+
+.formLayer input[type=checkbox],
+.formLayer input[type=radio] {
+	position: relative!important;
+	margin: 0 auto!important
+}
+
+.formLayer textarea {
+	line-height: 1.2em
+}
+
+section.add-new-form-field-opts,
+section.non-interactive-forms-opts {
+	margin-left: 10px
+}
+
+.dropdown-menu.forms-opts {
+	width: 265px
+}
+
+.add-new-form-field-opts a,
+.non-interactive-forms-opts a {
+	display: inline-block;
+	padding: 5px;
+	min-width: 35px;
+	text-align: center
+}
+
+.add-new-form-field-opts a:hover,
+.non-interactive-forms-opts a:hover {
+	background-color: #f6f6f6
+}
+
+.add-new-form-field-opts .fa,
+.non-interactive-forms-opts .fa {
+	font-size: 20px;
+	vertical-align: middle;
+	color: #000
+}
+
+.dropdown-menu.sign-opts img {
+	max-width: 300px
+}
+
+.page-between {
+	height: 30px;
+	margin-bottom: 10px;
+	margin-top: 30px;
+	border-top: 1px dashed #089de3;
+	margin-right: 45px;
+	opacity: .4;
+	transition: opacity .5s ease-in-out
+}
+
+.page-container:hover .page-between {
+	opacity: 1
+}
+
+.page-between a.btn.btn-light.btn-xs,
+.page-between a.btn.btn-light.btn-xs:active,
+.page-between a.btn.btn-light.btn-xs:focus,
+.page-between a.btn.btn-light.btn-xs:link,
+.page-between a.btn.btn-light.btn-xs:visited {
+	margin-top: -24px;
+	background-color: #e8e8e8;
+	color: #089de3;
+	border: 1px solid #089de3;
+	outline: 10px solid #e8e8e8
+}
+
+.page-between a.btn.btn-light.btn-xs:hover {
+	background-color: #f6f6f6
+}
+
+.page-container.last {
+	margin-bottom: 100px;
+	width: 100%;
+	padding: 0 20px
+}
+
+#global-help-hint {
+	position: fixed;
+	top: 49px;
+	z-index: 1029;
+	background-color: #000;
+	padding: 8px 15px;
+	left: 50%;
+	transform: translate(-50%);
+	cursor: pointer;
+	color: #fff;
+	font-size: 14px;
+	border-radius: 3px
+}
+
+.font-compare {
+	position: fixed;
+	top: -900px;
+	left: 100px;
+	font-size: 600px;
+	border: 1px solid transparent;
+	font-family: system;
+	color: #000;
+	background-color: #fff
+}
+
+#createSignatureModal .nav-tabs a .fa {
+	margin-right: 10px;
+	font-size: 23px;
+	vertical-align: bottom
+}
+
+#createSignatureModal .nav-tabs a {
+	font-size: 15px;
+	cursor: pointer;
+	overflow: hidden
+}
+
+#createSignatureModal .tab-content {
+	padding: 20px
+}
+
+#createSignatureModal .modal-footer {
+	margin-top: -25px
+}
+
+#signaturePad {
+	margin: auto;
+	text-align: center;
+	position: relative
+}
+
+#signaturePadCanvas {
+	border: 1px solid #eee
+}
+
+#signaturePadClearBtn {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-size: 26px
+}
+
+#add-signature-link {
+	width: auto
+}
+
+[data-tool=highlight] .fa-circle {
+	margin-left: 5px;
+	border: 1px solid transparent;
+	border-radius: 13px;
+	font-size: 17px;
+	padding: 2px 3px
+}
+
+[data-tool=highlight] .fa-circle:hover {
+	border: 1px solid #ccc
+}
+
+#undoTable tr td {
+	vertical-align: middle
+}
+
+#undoTable tr td.check {
+	width: 40px
+}
+
+#undoTable tr td.when,
+#undoTable tr td.where {
+	width: 80px;
+	color: #aaa
+}
+
+#undoTable tr td.what .fa {
+	margin-right: 7px
+}
+
+#undoTable tr td {
+	cursor: pointer
+}
+
+#undoTableWrap {
+	height: 280px;
+	overflow-y: scroll
+}
+
+@media screen and (max-width:996px) {
+	#tools-menu .btn-caption {
+		display: none
+	}
+}
+
+li.image-entry:hover,
+li.sign-entry:hover {
+	background-color: #f5f5f5
+}
+
+.image-entry-delete,
+.sign-entry-delete {
+	top: 7px;
+	right: 10px;
+	position: absolute;
+	font-size: 30px;
+	color: #ccc;
+	cursor: pointer;
+	font-weight: 100
+}
+
+.image-entry-delete:hover,
+.sign-entry-delete:hover {
+	color: #089de3
+}
+
+.image-entry,
+.sign-entry {
+	position: relative;
+	padding-right: 30px
+}
+
+.font-size-opts [name=fontSize2] {
+	font-size: 12px;
+	line-height: 20px;
+	width: 50px;
+	margin-right: 5px
+}
+
+.dropdown-menu.font-family-opts {
+	height: 300px;
+	overflow: scroll;
+	min-width: 250px
+}
+
+#startWithBlankDocument a {
+	font-weight: 100;
+	margin-top: 10px;
+	display: inline-block
+}
+
+.font-family-opts li a span.alt {
+	color: #ccc
+}
+
+.existing-text-not-editable .textLayer>div:hover {
+	outline-color: transparent
+}
+
+.formLayer input[type=text].find-replace-highlight,
+.formLayer textarea.find-replace-highlight,
+.textLayer .find-replace-highlight {
+	background-color: pink!important;
+	border: 1px solid #ff1493!important
+}
+
+.text-editable.find-replace-highlight {
+	background-color: pink;
+	border: 1px solid #ff1493
+}
+
+.forms-opts .dropdown-header {
+	padding: 3px 15px;
+	color: #089de3;
+	font-size: 14px
+}
+
+.ff-editable {
+	font-family: sans-serif
+}
+
+.ff-editable input[type=text],
+.ff-editable select {
+	border-color: transparent!important;
+	pointer-events: none
+}
+
+.ff-editable img,
+.ff-editable input[type=text],
+.ff-editable select {
+	background-color: #e7f5fc!important;
+	width: 100%;
+	height: 100%
+}
+
+.ff-caret {
+	width: 30px!important;
+	float: right
+}
+
+.ff-radio,
+.ff-radio-dot {
+	border-radius: 50%
+}
+
+.ff-field {
+	height: 100%;
+	border: 2px solid #ccc;
+	box-sizing: border-box;
+	background-color: #e7f5fc!important
+}
+
+.mouse-target.ff-editable {
+	opacity: .9;
+	outline-color: transparent!important
+}
+
+.mouse-target.ff-editable input,
+.mouse-target.ff-editable select {
+	pointer-events: all;
+	cursor: pointer
+}
+
+#ff-editable-menu {
+	background-color: #fff;
+	border-radius: 5px
+}
+
+.ff-editable-menu form {
+	width: 300px;
+	text-align: left;
+	margin: 10px
+}
+
+.ff-editable-menu .bottom-btns {
+	text-align: center;
+	margin-bottom: 10px
+}
+
+.ff-editable-menu .checkbox input {
+	margin-top: 5px
+}
+
+.ff-editable-menu .btn.delete-opts:hover {
+	color: #d9534f;
+	border-color: #d9534f
+}
+
+@supports (-ms-ime-align:auto) {
+	.page-container {
+		width: 100%
+	}
+}
+
+a.color-picker {
+	font-size: 14px;
+	color: #000;
+	float: left;
+	vertical-align: top;
+	width: 20px;
+	text-align: center
+}
+
+a.color-picker:hover {
+	color: #428bca
+}
+
+.color-swatch-footer .color-swatch {
+	display: inline-block
+}
+
+.color-swatch-footer {
+	text-align: left;
+	clear: both;
+	padding-top: 2px
+}
+
+.mouse-target-color-picker {
+	width: 19px;
+	height: 19px;
+	border: 1px solid #ccc;
+	cursor: crosshair;
+	position: absolute
+}
+
+#link-editable-menu {
+	background-color: #fff;
+	border-radius: 5px
+}
+
+.link-editable-menu form {
+	width: 300px;
+	text-align: left;
+	margin: 10px
+}
+
+.link-editable-menu .delete-opts {
+	float: right;
+	margin-bottom: 10px;
+	border-color: transparent
+}
+
+.link-editable-menu input[name=targetPage] {
+	width: 70px
+}
+
+.link-editable-menu .btn.delete-opts:hover {
+	color: #d9534f;
+	border-color: #d9534f
+}
+
+.annotationLayer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	line-height: 1
+}
+
+.annotationLayer, .annotationLayer .annotation.link {
+	pointer-events: none
+}[data-tool=link]
+
+.annotationLayer .annotation.link {
+	pointer-events: auto;
+	background-color: rgba(8, 157, 227, .1);
+	outline: 2px dashed transparent
+}[data-tool=link]
+
+.annotationLayer .annotation.link:hover {
+	outline-color: #089de3;
+	cursor: default
+}
+
+.annotation.link.edited {
+	display: none
+}
+
+.edit-menu .close {
+	padding-right: 10px;
+	padding-top: 5px;
+	font-weight: 100
+}
