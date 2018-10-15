@@ -13,12 +13,7 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
-	<style>
-		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-		#todo-list 				{ margin-bottom:30px; }
-		#todo-form 	 			{ margin-bottom:50px; }
-	</style>
+    <link rel="stylesheet" href="css/text_layer_builder.css">
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
@@ -48,7 +43,7 @@
 					<div id="page-count-container">Page <div id="pdf-current-page"></div> of <div id="pdf-total-pages"></div></div>
 				</div>
 				<canvas style="display: none" id="pdf-canvas" width="500"></canvas>
-                <div id="page">
+                <div id="page" data-tool="text">
                     <!--     <canvas id="canvas"></canvas> -->
                 </div>
 				<div id="page-loader">Loading page ...</div>
