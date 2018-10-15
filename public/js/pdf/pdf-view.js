@@ -6,6 +6,7 @@ var __PDF_DOC,
 	__CANVAS_CTX = __CANVAS.getContext('2d');
 
 function showPDF(pdf_url) {
+console.log("==> "+pdf_url);
 	$("#pdf-loader").show();
 
     PDFJS.disableStream = true;
@@ -236,7 +237,9 @@ jQuery('canvas').click(function(event) {
 // Upon click this should should trigger click on the #file-to-upload file input element
 // This is better than showing the not-good-looking file input element
 $("#upload-button").on('click', function() {
-	$("#file-to-upload").trigger('click');
+	//$("#file-to-upload").trigger('click');
+	$("#upload-button").hide();
+	showPDF("sample.pdf");
 });
 
 // When user chooses a PDF file
