@@ -1,13 +1,13 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
+<html ng-app="idxController">
 <head>
 	<!-- META -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-	<title>Node/Angular App</title>
+	<title>Online Pdf Editor App</title>
 
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -16,13 +16,10 @@
     <link rel="stylesheet" href="css/text_layer_builder.css">
 
 	<!-- SPELLS -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="js/pdf/pdf.js"></script><!-- load pdf -->
-	<script src="js/pdf/pdf.worker.js"></script><!-- load pdf worker -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script><!-- load angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
-	<script src="js/services/todos.js"></script> <!-- load our todo service -->
 	<script src="js/core.js"></script> <!-- load our main application -->
 
 </head>
@@ -35,23 +32,15 @@
 		<div id="pdf-main-container">
 			<div id="pdf-loader">Loading document ...</div>
 			<div id="pdf-contents">
-				<div id="pdf-meta" style="display: none">
-					<div id="pdf-buttons">
-						<button id="pdf-prev">Previous</button>
-						<button id="pdf-next">Next</button>
-					</div>
-					<div id="page-count-container">Page <div id="pdf-current-page"></div> of <div id="pdf-total-pages"></div></div>
-				</div>
-				<canvas style="display: none" id="pdf-canvas" width="500"></canvas>
                 <div id="page" data-tool="text">
-                    <!--     <canvas id="canvas"></canvas> -->
                 </div>
-				<div id="page-loader">Loading page ...</div>
 			</div>
 		</div>
 
-		<script src="js/pdf/pdf-view.js"></script><!-- load pdf worker -->
+        <script src="js/pdf/pdf.js"></script><!-- load pdf -->
+        <script src="js/pdf/pdf.worker.js"></script><!-- load pdf worker -->
         <script src="js/pdf/text_layer_builder.js"></script>
+		<script src="js/pdf/pdf-view.js"></script>
 	</div>
 </body>
 </html>

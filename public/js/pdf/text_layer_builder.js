@@ -288,6 +288,26 @@ var TextLayerBuilder = (function TextLayerBuilderClosure() {
      */
     _bindMouse: function TextLayerBuilder_bindMouse() {
       var div = this.textLayerDiv;
+      var children = document.getElementById("textLayer").children;
+      for (var i = 0; i < (children.length - 1); i++) {
+        children[i].setAttribute("class", "textLayer-text");
+      }
+      $(".textLayer-text").click(function() {
+              //jQuery( '.existingTextEdit' ).focusout();
+              //jQuery("#text-editable-menu").css("display","none");
+              //jQuery( '.existingTextEdit' ).attr("contenteditable", "false");
+             // jQuery('.existingTextEdit').removeClass("ui-draggable-disabled");
+             $(this).addClass("edited");
+             var editableDiv = document.createElement("div");
+
+             // Set it's class to textLayer which have required CSS styles
+             editableDiv.setAttribute("class", "existingTextEdit text-editable ui-draggable ui-draggable-handle ui-draggable-disabled");
+             editableDiv.setAttribute("style", "position: absolute; z-index: 10; color: rgb(0, 0, 0); font-family: Helvetica; left:"+$(this).css("left")+"; top:"+$(this).css("top")+"; font-size:"+$(this).css("font-size"));
+             editableDiv.setAttribute("contenteditable", "true");
+             editableDiv.append($(this).text());
+             var end = div.querySelector('.endOfContent');
+             document.getElementById("textLayer").appendChild(editableDiv);
+          });
       div.addEventListener('mousedown', function (e) {
         var end = div.querySelector('.endOfContent');
         if (!end) {
