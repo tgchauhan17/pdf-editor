@@ -1,10 +1,11 @@
 var __PDF_DOC,
 	__CURRENT_PAGE,
-	__TOTAL_PAGES;
+	__TOTAL_PAGES,
+	__PAGE_COORDINATES;
 
 function showPDF(pdf_url) {
 	$("#pdf-loader").show();
-
+    __PAGE_COORDINATES = [];
     PDFJS.disableStream = true;
 	PDFJS.getDocument({ url: pdf_url }).then(function(pdf) {
 		__PDF_DOC = pdf;
@@ -24,52 +25,26 @@ function showPDF(pdf_url) {
               // Get desired page
               pdf.getPage(i).then(function(page) {
 
-                var scale = 1.9781512605042018;
+                //var scale = 1.9781512605042018;
+                var scale = 1.81;
                 var viewport = page.getViewport(scale);
                 var pageContainer = document.createElement("div");
                 var pageWrap = document.createElement("div");
 
-                // Set id attribute with page-#{pdf_page_number} format
-                //pageContainer.setAttribute("id", "page-" + (page.pageIndex + 1));
-
                 // This will keep positions of child elements as per our needs
                 pageContainer.setAttribute("class", "page-container");
                 pageWrap.setAttribute("class", "page-wrap rendered");
-
 
                 // Append div within div#container
                 container.insertBefore(pageContainer,document.getElementById("page-container-last"));
 
                 // Create a new Canvas element
                 var canvas = document.createElement("canvas");
-                canvas.setAttribute("id", "page-" + (page.pageIndex + 1));
-
-                var pageToolsMenu = document.createElement("div");
-                var btnGroup = document.createElement("div");
-                var button = document.createElement("button");
-                var ifa = document.createElement("i");
-
-
-                ifa.setAttribute("class", "fa fa-trash-o");
-                button.appendChild(ifa);
-                button.setAttribute("type", "button");
-                button.setAttribute("class", "btn btn-default btn-xs");
-                button.setAttribute("title", "Delete PDF Page");
-                button.setAttribute("data-tool", "delete-page");
-                //btnGroup.appendChild(button);
-                btnGroup.setAttribute("class", "btn-group btn-group-vertical");
-                btnGroup.setAttribute("role", "group");
-                btnGroup.setAttribute("aria-label", "Page Tools");
-                pageToolsMenu.appendChild(btnGroup);
-                pageToolsMenu.setAttribute("class", "page-tools-menu");
+                canvas.setAttribute("id", "canvas-" + (page.pageIndex + 1));
 
                 var pageNoLabel = document.createElement("div");
                 pageNoLabel.append((page.pageIndex + 1));
                 pageNoLabel.setAttribute("class", "page-number-label");
-                //pageNoLabel.text(i);
-
-                // Append within div
-                pageContainer.appendChild(pageToolsMenu);
                 pageContainer.appendChild(pageNoLabel);
                 pageContainer.appendChild(pageWrap);
                 pageWrap.appendChild(canvas);
@@ -82,35 +57,14 @@ function showPDF(pdf_url) {
                   canvasContext: context,
                   viewport: viewport
                 };
-
                 // Render PDF page
                 page.render(renderContext).then(function() {
+
                     // Get text-fragments
                     return page.getTextContent();
                   })
                   .then(function(textContent) {
-                    // Create div which will hold text-fragments
-                    var textLayerDiv = document.createElement("div");
-
-                    // Set it's class to textLayer which have required CSS styles
-                    textLayerDiv.setAttribute("class", "textLayer");
-                    textLayerDiv.setAttribute("id", "textLayer");
-
-                    // Append newly created div in `div#page-#{pdf_page_number}`
-                    pageWrap.appendChild(textLayerDiv);
-
-                    // Create new instance of TextLayerBuilder class
-                    var textLayer = new TextLayerBuilder({
-                      textLayerDiv: textLayerDiv,
-                      pageIndex: page.pageIndex,
-                      viewport: viewport
-                    });
-
-                    // Set text-fragments
-                    textLayer.setTextContent(textContent);
-                    console.log(textContent);
-                    // Render text-fragments
-                    textLayer.render();
+                    drawAndSaveCoordinates(page.pageIndex + 1);
                   });
               });
              }
@@ -122,6 +76,73 @@ function showPDF(pdf_url) {
 	});
 
 }
+
+function drawAndSaveCoordinates(pageId) {
+        var canvasId = "canvas-"+pageId;
+        var canvas = document.getElementById(canvasId);
+        var coordinates = [];
+        var scrollTop = $(window).scrollTop(), elementOffsetTop = $("#"+canvasId).offset().top, distanceY = (elementOffsetTop - scrollTop);
+        var scrollLeft = $(window).scrollLeft(), elementOffsetLeft = $("#"+canvasId).offset().left, distanceX = (elementOffsetLeft - scrollLeft);
+        function setMousePosition(e) {
+            var ev = e || window.event; //Moz || IE
+            if (ev.pageX) { //Moz
+                mouse.x = ev.pageX + scrollLeft + ((mouse.x - mouse.startX - distanceX < 0) ? (10) : 0);
+                mouse.y = ev.pageY + scrollTop + ((mouse.y - mouse.startY - distanceY < 0) ? (10) : 0);
+            } else if (ev.clientX) { //IE
+                mouse.x = ev.clientX + scrollLeft;
+                mouse.y = ev.clientY + scrollTop;
+            }
+        };
+
+        var mouse = {
+            x: 0,
+            y: 0,
+            startX: 0,
+            startY: 0
+        };
+        var element = null;
+
+        canvas.onmousemove = function (e) {
+            setMousePosition(e)
+            if (element !== null) {
+                element.style.width = Math.abs(mouse.x - mouse.startX - distanceX - 10) + 'px';
+                element.style.height = Math.abs(mouse.y - mouse.startY - distanceY - 10) + 'px';
+                element.style.left = (mouse.x - mouse.startX - distanceX < 0) ? mouse.x - distanceX - 10 + 'px' : mouse.startX + 'px';
+                element.style.top = (mouse.y - mouse.startY - distanceY < 0) ? mouse.y - distanceY - 10 + 'px' : mouse.startY + 'px';
+            }
+        }
+
+    	var startFinishedCoordinates = [];
+
+        canvas.onclick = function (e) {
+            if (element !== null) {
+                element = null;
+                canvas.style.cursor = "default";
+                console.log("finsihed.");
+                startFinishedCoordinates.push(mouse.x);
+                startFinishedCoordinates.push(mouse.y);
+                coordinates.push(startFinishedCoordinates);
+                __PAGE_COORDINATES[pageId-1] = coordinates
+                console.log(__PAGE_COORDINATES);
+                startFinishedCoordinates = [];
+
+            } else {
+                console.log("begun.");
+                mouse.startX = mouse.x - distanceX;
+                mouse.startY = mouse.y - distanceY;
+                element = document.createElement('div');
+                element.className = 'rectangle'
+                element.style.left = mouse.x - distanceX + 'px';
+                element.style.top = mouse.y - distanceY + 'px';
+                canvas.parentElement.appendChild(element)
+                canvas.style.cursor = "crosshair";
+                startFinishedCoordinates.push(mouse.startX);
+                startFinishedCoordinates.push(mouse.startY);
+                console.log(mouse.startX+" "+mouse.startY);
+            }
+        }
+    }
+
 
 // Upon click this should should trigger click on the #file-to-upload file input element
 $("#upload-button").on('click', function() {

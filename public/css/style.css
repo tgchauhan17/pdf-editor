@@ -52,3 +52,8 @@ canvas {
 #pdf-contents {
 	display: none;
 }
+
+.rectangle {
+    border: 1px solid #FF0000;
+    position: absolute;
+}
